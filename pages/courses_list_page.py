@@ -4,6 +4,7 @@ from components.navigation.sidebar_component import SidebarComponent
 from components.navigation.navbar_component import NavBarComponent
 from components.views.empty_view_component import EmptyViewComponent
 from components.courses.course_view_component import CourseViewComponent
+from components.courses.courses_list_toolbar_view_component import CoursesListToolbarViewComponent
 
 
 class CoursesListPage(BasePage):
@@ -15,8 +16,7 @@ class CoursesListPage(BasePage):
         self.sidebar = SidebarComponent(page)
 
         # Заголовок и кнопка создания курса
-        self.courses_title = page.get_by_test_id('courses-list-toolbar-title-text')
-        self.create_course_button = page.get_by_test_id('courses-list-toolbar-create-course-button')
+        self.toolbar = CoursesListToolbarViewComponent(page)
 
         # Элементы, когда на странице не загружены курсы
         self.empty_view = EmptyViewComponent(page,'courses-list')
@@ -26,10 +26,6 @@ class CoursesListPage(BasePage):
 
 
 
-    def check_visible_courses_title(self):
-        expect(self.courses_title).to_be_visible()
-        expect(self.courses_title).to_have_text('Courses')
-
     def check_visible_empty_view(self):
         self.empty_view.check_visible(
             title='There is no results',
@@ -37,11 +33,6 @@ class CoursesListPage(BasePage):
         )
 
 
-    def check_visible_create_course_button(self):
-        expect(self.create_course_button).to_be_visible()
-
-    def click_create_course_button(self):
-        self.create_course_button.click()
 
 
 
